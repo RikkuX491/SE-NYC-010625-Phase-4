@@ -171,10 +171,10 @@ Result: The number is 4.0
 
 Note: Make sure to convert the `<number>` parameter to an integer when solving this deliverable!
 
-3. Create a `flatburger()` view. The route for this view should be of the format `/flatburger_page`. The view should return the `flatburger_html_code` variable.
-
-Note: The value of the `flatburger_html_code` variable is a `string` containing `HTML` code. The `HTML` code contains a `<script>` that is making a `GET` request to `http://localhost:7777/burgers`. Therefore, the `Flask` app must be running on port `7777` and there must be a `/burgers` route that returns a `list` of `dictionaries` containing the burger data (Deliverable # 4) to successfully retrieve the burger data via the `GET` request. `@app.route()` by default accepts `GET` requests.
-
-4. Create a `get_burgers()` view. The route for this view should be of the format `/burgers`. The view should return the `burgers` variable.
+3. Create a `get_burgers()` view. The route for this view should be of the format `/burgers`. The view should return the `burgers` variable.
 
 Note: The value of the `burgers` variable is a `list` that contains five `dictionaries` that each have three key and value pairs (`name`, `image`, and `description`) that pertain to information about burgers.
+
+4. Create a `flatburger()` view. The route for this view should be of the format `/flatburger_page`. The view should return the `flatburger_html_code` variable.
+
+Note: The value of the `flatburger_html_code` variable is a `string` containing `HTML` code. The `HTML` code contains a `<script>` that is making a `GET` request to `http://localhost:7777/burgers`. Therefore, the `Flask` app must be running on port `7777` and there must be a `/burgers` route that returns a `list` of `dictionaries` containing the burger data (Deliverable # 3) to successfully retrieve the burger data via the `GET` request. `@app.route()` by default accepts `GET` requests.
