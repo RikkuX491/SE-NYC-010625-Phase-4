@@ -1,6 +1,4 @@
 #!/usr/bin/env python3
-import ipdb
-
 from flask import Flask
 from flatburger.data import burgers
 from flatburger.html import flatburger_html_code
@@ -9,24 +7,20 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    return "<h1>Welcome to my Flask API!</h1>"
+    return '<h1>Welcome to my website!</h1>'
 
 @app.route('/another_page')
 def different_page():
-    return f'<h1>This is another page!</h1>'
+    return '<h1>This is another page!</h1>'
 
-# Adding a parameter to a route
 @app.route('/intro/<name>')
 def intro(name):
-    # ipdb.set_trace()
     return f"<h1>Hi! My name is {name}.</h1>"
 
-# Converting the datatype of a parameter
 @app.route('/intro/<name>/<int:age>')
 def intro_2(name, age):
     return f"<h1>Hi! My name is {name}. I'm {age} years old!</h1>"
 
-# Converting a parameter into a float
 @app.route('/<float:number>')
 def float_example(number):
     return f"<h1>The number is {number}</h1>"
