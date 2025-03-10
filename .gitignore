@@ -1,0 +1,5 @@
+.DS_Store
+node_modules
+.pytest_cache
+.venv
+__pycache__
