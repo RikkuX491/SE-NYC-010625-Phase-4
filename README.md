@@ -24,27 +24,27 @@
 
 ## Notes
 
-The following code in `app.py` will import the `Flask` class so that we can use it to create an instance of the `Flask` class to start our Flask application:
+1. The following code in `app.py` will import the `Flask` class so that we can use it to create an instance of the `Flask` class to start our Flask application:
 
 ```py
 from flask import Flask
 ```
 
-The following code in `app.py` will import the `flatburger_html_code` variable from the `html.py` file in the `flatburger` directory:
-
-```py
-from flatburger.html import flatburger_html_code
-```
-
-The value of the `flatburger_html_code` variable is a `string` containing `HTML` code that should be returned from a `Flask` view in Deliverable # 3.
-
-The following code in `app.py` will import the `burgers` variable from the `data.py` file in the `flatburgers` directory:
+2. The following code in `app.py` will import the `burgers` variable from the `data.py` file in the `flatburgers` directory:
 
 ```py
 from flatburgers.data import burgers
 ```
 
-The value of the `burgers` variable is a `list` that contains five `dictionaries` that each have three key and value pairs (`name`, `image`, and `description`) that pertain to information about burgers. The `burgers` variable should be returned from a `Flask` view in Deliverable # 4.
+The value of the `burgers` variable is a `list` that contains five `dictionaries` that each have three key and value pairs (`name`, `image`, and `description`) that pertain to information about burgers. The `burgers` variable should be returned from a `Flask` view in Deliverable # 3.
+
+3. The following code in `app.py` will import the `flatburger_html_code` variable from the `html.py` file in the `flatburger` directory:
+
+```py
+from flatburger.html import flatburger_html_code
+```
+
+The value of the `flatburger_html_code` variable is a `string` containing `HTML` code that should be returned from a `Flask` view in Deliverable # 4.
 
 ## Code Along
 
