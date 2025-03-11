@@ -32,5 +32,19 @@ def get_hotels():
     response_body = [hotel.to_dict() for hotel in hotels]
     return make_response(response_body, 200)
 
+# Deliverable # 4 solution code
+@app.route('/hotels/<int:id>')
+def hotel_by_id(id):
+    hotel = db.session.get(Hotel, id)
+
+    if hotel:
+        response_body = hotel.to_dict()
+        return make_response(response_body, 200)
+    else:
+        response_body = {
+            "error": "Hotel Not Found!"
+        }
+        return make_response(response_body, 404)
+
 if __name__ == "__main__":
     app.run(port=7777, debug=True)
