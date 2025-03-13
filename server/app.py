@@ -20,22 +20,59 @@ migrate = Migrate(app, db)
 # initialize the Flask application to use the database
 db.init_app(app)
 
-@app.route('/hotels')
+@app.route('/hotels', methods=["GET", "POST"])
 def all_hotels():
-    # This code should only be executed if the request method is "GET"
-    hotels = Hotel.query.all()
-    response_body = [hotel.to_dict(only=('id', 'name')) for hotel in hotels]
-    return make_response(response_body, 200)
+    if request.method == "GET":
+        # This code should only be executed if the request method is "GET"
+        hotels = Hotel.query.all()
+        response_body = [hotel.to_dict(only=('id', 'name')) for hotel in hotels]
+        return make_response(response_body, 200)
+    
+    elif request.method == "POST":
+        hotel_name = request.json.get('name')
+        new_hotel = Hotel(name=hotel_name)
+        db.session.add(new_hotel)
+        db.session.commit()
+        response_body = new_hotel.to_dict(rules=('-reviews',))
+        return make_response(response_body, 201)
 
-@app.route('/hotels/<int:id>')
+# @app.post('/hotels')
+# def hotels_post():
+#     hotel_name = request.json.get('name')
+#     new_hotel = Hotel(name=hotel_name)
+#     db.session.add(new_hotel)
+#     db.session.commit()
+#     response_body = new_hotel.to_dict(rules=('-reviews',))
+#     return make_response(response_body, 201)
+
+
+@app.route('/hotels/<int:id>', methods=["GET", "PATCH", "DELETE"])
 def hotel_by_id(id):
     hotel = db.session.get(Hotel, id)
 
     if hotel:
-        # This code should only be executed if the request method is "GET"
-        response_body = hotel.to_dict(rules=('-reviews.hotel', '-reviews.customer'))
-        response_body['customers'] = [customer.to_dict(only=('id', 'first_name', 'last_name')) for customer in hotel.customers]
-        return make_response(response_body, 200)
+        if request.method == 'GET':
+            # This code should only be executed if the request method is "GET"
+            response_body = hotel.to_dict(rules=('-reviews.hotel', '-reviews.customer'))
+            response_body['customers'] = [customer.to_dict(only=('id', 'first_name', 'last_name')) for customer in hotel.customers]
+            return make_response(response_body, 200)
+        
+        elif request.method == 'PATCH':
+            for key in request.json:
+                setattr(hotel, key, request.json[key])
+
+            db.session.commit()
+            response_body = hotel.to_dict(rules=('-reviews',))
+            return make_response(response_body, 200)
+        
+        elif request.method == 'DELETE':
+            # You only need to iterate and delete reviews if the hotel reviews relationship is missing the cascade (in models.py).
+            # for review in hotel.reviews:
+            #     db.session.delete(review)
+            
+            db.session.delete(hotel)
+            db.session.commit()
+            return make_response({}, 204)
     else:
         response_body = {
             "error": "Hotel Not Found"
