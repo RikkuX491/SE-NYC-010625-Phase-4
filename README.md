@@ -14,7 +14,7 @@
 |3 | Modeling Relationships in Flask-SQLAlchemy |[03_starter](https://github.com/RikkuX491/SE-NYC-010625-Phase-4/tree/03_starter)|[03_example_code](https://github.com/RikkuX491/SE-NYC-010625-Phase-4/tree/03_example_code)|[03_solution](https://github.com/RikkuX491/SE-NYC-010625-Phase-4/tree/03_solution)|
 |4 | Retrieving Data from APIs & Building APIs  |[04_starter](https://github.com/RikkuX491/SE-NYC-010625-Phase-4/tree/04_starter)|[04_example_code](https://github.com/RikkuX491/SE-NYC-010625-Phase-4/tree/04_example_code)|[04_solution](https://github.com/RikkuX491/SE-NYC-010625-Phase-4/tree/04_solution)|
 |5 | REST APIs with Flask                       |[05_starter](https://github.com/RikkuX491/SE-NYC-010625-Phase-4/tree/05_starter)|[05_example_code](https://github.com/RikkuX491/SE-NYC-010625-Phase-4/tree/05_example_code)|[05_solution](https://github.com/RikkuX491/SE-NYC-010625-Phase-4/tree/05_solution)|
-|6 | Constraints and Validations                ||||
+|6 | Constraints and Validations                |[06_starter](https://github.com/RikkuX491/SE-NYC-010625-Phase-4/tree/06_starter)|||
 |7 | Client & Server Communication              ||||
 |8 | Authentication                             ||||
 |9 | Authorization                              ||||
