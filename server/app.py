@@ -39,11 +39,19 @@ class AllHotels(Resource):
     
     def post(self):
         hotel_name = request.json.get('name')
-        new_hotel = Hotel(name=hotel_name)
-        db.session.add(new_hotel)
-        db.session.commit()
-        response_body = new_hotel.to_dict(rules=('-reviews',))
-        return make_response(response_body, 201)
+
+        # Deliverable # 8 solution code
+        try:
+            new_hotel = Hotel(name=hotel_name)
+            db.session.add(new_hotel)
+            db.session.commit()
+            response_body = new_hotel.to_dict(rules=('-reviews',))
+            return make_response(response_body, 201)
+        except:
+            response_body = {
+                "error": "Hotel names cannot be null, must be unique, and must be strings that are between 5 and 50 characters long!"
+            }
+            return make_response(response_body, 422)
     
 api.add_resource(AllHotels, '/hotels')
 
@@ -69,11 +77,19 @@ class HotelByID(Resource):
         hotel = db.session.get(Hotel, id)
 
         if hotel:
-            for attr in request.json:
-                setattr(hotel, attr, request.json.get(attr))
-            db.session.commit()
-            response_body = hotel.to_dict(rules=('-reviews',))
-            return make_response(response_body, 200)
+
+            # Deliverable # 9 solution code
+            try:
+                for attr in request.json:
+                    setattr(hotel, attr, request.json.get(attr))
+                db.session.commit()
+                response_body = hotel.to_dict(rules=('-reviews',))
+                return make_response(response_body, 200)
+            except:
+                response_body = {
+                    "error": "Hotel names cannot be null, must be unique, and must be strings that are between 5 and 50 characters long!"
+                }
+                return make_response(response_body, 422)
 
         else:
             response_body = {
@@ -106,11 +122,19 @@ class AllCustomers(Resource):
     def post(self):
         customer_first_name = request.json.get('first_name')
         customer_last_name = request.json.get('last_name')
-        new_customer = Customer(first_name=customer_first_name, last_name=customer_last_name)
-        db.session.add(new_customer)
-        db.session.commit()
-        response_body = new_customer.to_dict(rules=('-reviews',))
-        return make_response(response_body, 201)
+
+        # Deliverable # 10 solution code
+        try:
+            new_customer = Customer(first_name=customer_first_name, last_name=customer_last_name)
+            db.session.add(new_customer)
+            db.session.commit()
+            response_body = new_customer.to_dict(rules=('-reviews',))
+            return make_response(response_body, 201)
+        except:
+            response_body = {
+                "error": "Customer first names and last names cannot be null, must be between 3 and 15 characters long, and the first name cannot be the same as the last name!"
+            }
+            return make_response(response_body, 422)
     
 api.add_resource(AllCustomers, '/customers')
 
@@ -136,11 +160,19 @@ class CustomerByID(Resource):
         customer = db.session.get(Customer, id)
 
         if customer:
-            for attr in request.json:
-                setattr(customer, attr, request.json.get(attr))
-            db.session.commit()
-            response_body = customer.to_dict(rules=('-reviews',))
-            return make_response(response_body, 200)
+
+            # Deliverable # 11 solution code
+            try:
+                for attr in request.json:
+                    setattr(customer, attr, request.json.get(attr))
+                db.session.commit()
+                response_body = customer.to_dict(rules=('-reviews',))
+                return make_response(response_body, 200)
+            except:
+                response_body = {
+                    "error": "Customer first names and last names cannot be null, must be between 3 and 15 characters long, and the first name cannot be the same as the last name!"
+                }
+                return make_response(response_body, 422)
         
         else:
             response_body = {
@@ -175,11 +207,19 @@ class AllReviews(Resource):
         review_text = request.json.get('text')
         review_hotel_id = request.json.get('hotel_id')
         review_customer_id = request.json.get('customer_id')
-        new_review = Review(rating=review_rating, text=review_text, hotel_id=review_hotel_id, customer_id=review_customer_id)
-        db.session.add(new_review)
-        db.session.commit()
-        response_body = new_review.to_dict(rules=('-hotel.reviews', '-customer.reviews'))
-        return make_response(response_body, 201)
+
+        # Deliverable # 12 solution code
+        try:
+            new_review = Review(rating=review_rating, text=review_text, hotel_id=review_hotel_id, customer_id=review_customer_id)
+            db.session.add(new_review)
+            db.session.commit()
+            response_body = new_review.to_dict(rules=('-hotel.reviews', '-customer.reviews'))
+            return make_response(response_body, 201)
+        except:
+            response_body = {
+                "error": "Invalid Review data provided!"
+            }
+            return make_response(response_body, 422)
 
 api.add_resource(AllReviews, '/reviews')
 
@@ -201,11 +241,19 @@ class ReviewByID(Resource):
         review = db.session.get(Review, id)
 
         if review:
-            for attr in request.json:
-                setattr(review, attr, request.json.get(attr))
-            db.session.commit()
-            response_body = review.to_dict(rules=('-hotel.reviews', '-customer.reviews'))
-            return make_response(response_body, 200)
+            
+            # Deliverable # 13 solution code
+            try:
+                for attr in request.json:
+                    setattr(review, attr, request.json.get(attr))
+                db.session.commit()
+                response_body = review.to_dict(rules=('-hotel.reviews', '-customer.reviews'))
+                return make_response(response_body, 200)
+            except:
+                response_body = {
+                    "error": "Invalid Review data provided!"
+                }
+                return make_response(response_body, 422)
 
         else:
             response_body = {
