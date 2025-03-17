@@ -17,13 +17,30 @@ class Hotel(db.Model, SerializerMixin):
     __tablename__ = 'hotels'
 
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String)
+    name = db.Column(db.String, nullable=False, unique=True)
 
     # 1 hotel has many reviews: 1-to-many relationship between hotels and reviews tables
     reviews = db.relationship('Review', back_populates='hotel', cascade='all')
 
     # hotels and customers Many-to-Many relationship: The hotel's customers
     customers = association_proxy('reviews', 'customer', creator = lambda c: Review(customer = c))
+
+    @validates('name')
+    def validate_name(self, column_name, value):
+        # Here's one way to write out our validation code
+        # if(type(value) == str) and (len(value) > 4):
+        #     return value
+        # else:
+        #     raise Exception(f"Hotel {column_name} must be a string that is at least 5 characters long!")
+
+        # Here's another way using multiple exception types
+        if (type(value) != str):
+            raise TypeError(f"Hotel {column_name} must be a string!")
+        elif (len(value) < 5):
+            raise ValueError(f"Hotel {column_name} must be at least 5 characters long!")
+        else:
+            return value
+
 
 class Customer(db.Model, SerializerMixin):
     __tablename__ = 'customers'
@@ -32,11 +49,24 @@ class Customer(db.Model, SerializerMixin):
     first_name = db.Column(db.String)
     last_name = db.Column(db.String)
 
+    __table_args__ = (
+        db.CheckConstraint('first_name != last_name'),
+    )
+
     # 1 customer has many reviews: 1-to-many relationship between customers and reviews tables
     reviews = db.relationship('Review', back_populates='customer', cascade='all')
 
     # hotels and customers Many-to-Many relationship: The customer's hotels
     hotels = association_proxy('reviews', 'hotel', creator = lambda h: Review(hotel = h))
+
+    @validates('first_name', 'last_name')
+    def validate_first_and_last_name(self, column_name, value):
+        if (type(value) != str):
+            raise TypeError(f"Customer's {column_name} must be a string!")
+        elif (len(value) < 3):
+            raise ValueError(f"Customer's {column_name} must be at least 3 characters long!")
+        else:
+            return value
 
 class Review(db.Model, SerializerMixin):
     __tablename__ = 'reviews'

@@ -12,9 +12,15 @@ with app.app_context():
     hotel2 = Hotel(name="Hampton Inn")
     hotel3 = Hotel(name="The Chanler at Cliff Walk")
 
+    # Debugging - adding hotel whose name is empty string
+    # hotel4 = Hotel()
+
     customer1 = Customer(first_name="Alice", last_name="Baker")
     customer2 = Customer(first_name="Bob", last_name="Willis")
     customer3 = Customer(first_name="Cindy", last_name="Davidson")
+
+    # Debugging - adding customer
+    # customer4 = Customer(first_name="Daniel", last_name="Daniel")
 
     review1 = Review(rating=5, text="Best hotel ever!", hotel_id=1, customer_id=1)
     review2 = Review(rating=4, text="Amazing!", hotel_id=1, customer_id=2)

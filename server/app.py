@@ -39,11 +39,32 @@ class AllHotels(Resource):
     
     def post(self):
         hotel_name = request.json.get('name')
-        new_hotel = Hotel(name=hotel_name)
-        db.session.add(new_hotel)
-        db.session.commit()
-        response_body = new_hotel.to_dict(rules=('-reviews',))
-        return make_response(response_body, 201)
+        try:
+            new_hotel = Hotel(name=hotel_name)
+            db.session.add(new_hotel)
+            db.session.commit()
+            response_body = new_hotel.to_dict(rules=('-reviews',))
+            return make_response(response_body, 201)
+        # except Exception as e:
+        #     response_body = {
+        #         "error": str(e)
+        #     }
+        #     return make_response(response_body, 422)
+        except TypeError as e:
+            response_body = {
+                "error": str(e)
+            }
+            return make_response(response_body, 422)
+        except ValueError as e:
+            response_body = {
+                "error": str(e)
+            }
+            return make_response(response_body, 422)
+        except:
+            response_body = {
+                "error": "Hotel names cannot be null and must be unique!"
+            }
+            return make_response(response_body, 422)
     
 api.add_resource(AllHotels, '/hotels')
 
@@ -69,11 +90,27 @@ class HotelByID(Resource):
         hotel = db.session.get(Hotel, id)
 
         if hotel:
-            for attr in request.json:
-                setattr(hotel, attr, request.json.get(attr))
-            db.session.commit()
-            response_body = hotel.to_dict(rules=('-reviews',))
-            return make_response(response_body, 200)
+            try:
+                for attr in request.json:
+                    setattr(hotel, attr, request.json.get(attr))
+                db.session.commit()
+                response_body = hotel.to_dict(rules=('-reviews',))
+                return make_response(response_body, 200)
+            except TypeError as e:
+                response_body = {
+                    "error": str(e)
+                }
+                return make_response(response_body, 422)
+            except ValueError as e:
+                response_body = {
+                    "error": str(e)
+                }
+                return make_response(response_body, 422)
+            except:
+                response_body = {
+                    "error": "Hotel names cannot be null and must be unique!"
+                }
+                return make_response(response_body, 422)
 
         else:
             response_body = {
@@ -106,11 +143,27 @@ class AllCustomers(Resource):
     def post(self):
         customer_first_name = request.json.get('first_name')
         customer_last_name = request.json.get('last_name')
-        new_customer = Customer(first_name=customer_first_name, last_name=customer_last_name)
-        db.session.add(new_customer)
-        db.session.commit()
-        response_body = new_customer.to_dict(rules=('-reviews',))
-        return make_response(response_body, 201)
+        try:
+            new_customer = Customer(first_name=customer_first_name, last_name=customer_last_name)
+            db.session.add(new_customer)
+            db.session.commit()
+            response_body = new_customer.to_dict(rules=('-reviews',))
+            return make_response(response_body, 201)
+        except TypeError as e:
+            response_body = {
+                "error": str(e)
+            }
+            return make_response(response_body, 422)
+        except ValueError as e:
+            response_body = {
+                "error": str(e)
+            }
+            return make_response(response_body, 422)
+        except:
+            response_body = {
+                "error": "Customer's first name and last name cannot be the same!"
+            }
+            return make_response(response_body, 422)
     
 api.add_resource(AllCustomers, '/customers')
 
@@ -136,11 +189,28 @@ class CustomerByID(Resource):
         customer = db.session.get(Customer, id)
 
         if customer:
-            for attr in request.json:
-                setattr(customer, attr, request.json.get(attr))
-            db.session.commit()
-            response_body = customer.to_dict(rules=('-reviews',))
-            return make_response(response_body, 200)
+            try:
+                for attr in request.json:
+                    setattr(customer, attr, request.json.get(attr))
+            
+                db.session.commit()
+                response_body = customer.to_dict(rules=('-reviews',))
+                return make_response(response_body, 200)
+            except TypeError as e:
+                response_body = {
+                    "error": str(e)
+                }
+                return make_response(response_body, 422)
+            except ValueError as e:
+                response_body = {
+                    "error": str(e)
+                }
+                return make_response(response_body, 422)
+            except:
+                response_body = {
+                    "error": "Customer's first name and last name cannot be the same!"
+                }
+                return make_response(response_body, 422)
         
         else:
             response_body = {
