@@ -16,5 +16,5 @@
 |5 | REST APIs with Flask                       |[05_starter](https://github.com/RikkuX491/SE-NYC-010625-Phase-4/tree/05_starter)|[05_example_code](https://github.com/RikkuX491/SE-NYC-010625-Phase-4/tree/05_example_code)|[05_solution](https://github.com/RikkuX491/SE-NYC-010625-Phase-4/tree/05_solution)|
 |6 | Constraints and Validations                |[06_starter](https://github.com/RikkuX491/SE-NYC-010625-Phase-4/tree/06_starter)|[06_example_code](https://github.com/RikkuX491/SE-NYC-010625-Phase-4/tree/06_example_code)|[06_solution](https://github.com/RikkuX491/SE-NYC-010625-Phase-4/tree/06_solution)|
 |7 | Client & Server Communication              |[07_starter](https://github.com/RikkuX491/SE-NYC-010625-Phase-4/tree/07_starter)|[07_example_code](https://github.com/RikkuX491/SE-NYC-010625-Phase-4/tree/07_example_code)|[07_solution](https://github.com/RikkuX491/SE-NYC-010625-Phase-4/tree/07_solution)|
-|8 | Authentication                             ||||
+|8 | Authentication                             |[08_starter](https://github.com/RikkuX491/SE-NYC-010625-Phase-4/tree/08_starter)|||
 |9 | Authorization                              ||||
