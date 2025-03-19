@@ -4,7 +4,7 @@ import { useOutletContext, useNavigate } from "react-router-dom";
 function NewHotelForm() {
 
   const {addHotel} = useOutletContext()
-  // const navigate = useNavigate()
+  const navigate = useNavigate()
 
   const [formData, setFormData] = useState({
     name: "",
@@ -25,7 +25,7 @@ function NewHotelForm() {
       image: ""
     })
 
-    // navigate('/')
+    navigate('/')
   }
 
   return (
