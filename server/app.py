@@ -8,7 +8,15 @@ from flask_cors import CORS
 
 from models import db, Hotel, Customer, Review
 
+import os
+
 app = Flask(__name__)
+
+# Here's the secret key value that will be used for the session object
+# app.secret_key = b'Xu\xcd\xd4\xda\xdf\xc9>\xf1:\x91\xfaz\x80\xeb\x91'
+
+# Here's a potential more best practice approach for storing the secret key value
+app.secret_key = os.urandom(16)
 
 # configure a database connection to the local file examples.db
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///hotels.db'
@@ -29,6 +37,7 @@ api = Api(app)
 class AllHotels(Resource):
 
     def get(self):
+        # ipdb.set_trace()
         hotels = Hotel.query.all()
         response_body = [hotel.to_dict(only=('id', 'name', 'image')) for hotel in hotels]
         return make_response(response_body, 200)
@@ -268,6 +277,51 @@ class ReviewByID(Resource):
             return make_response(response_body, 404)
 
 api.add_resource(ReviewByID, '/reviews/<int:id>')
+
+# Here's the backend portion of our Login feature
+class Login(Resource):
+    def post(self):
+        username_data = request.json.get('username')
+        customer = Customer.query.filter(Customer.username == username_data).first()
+
+        if customer:
+            session['customer_id'] = customer.id
+            response_body = customer.to_dict(rules=('-reviews',))
+            return make_response(response_body, 201)
+
+        else:
+            response_body = {
+                "error": "Unable to login due to invalid username!"
+            }
+            return make_response(response_body, 401)
+
+api.add_resource(Login, '/login')
+
+class CheckSession(Resource):
+    def get(self):
+        id = session.get('customer_id')
+        customer = db.session.get(Customer, id)
+
+        if customer:
+            response_body = customer.to_dict(rules=('-reviews',))
+            return make_response(response_body, 200)
+
+        else:
+            response_body = {
+                "error": "Please log in!"
+            }
+            return make_response(response_body, 401)
+
+api.add_resource(CheckSession, '/check_session')
+
+class Logout(Resource):
+    def delete(self):
+        if session.get('customer_id') != None:
+            del session['customer_id']
+        
+        return make_response({}, 204)
+
+api.add_resource(Logout, '/logout')
 
 if __name__ == "__main__":
     app.run(port=7777, debug=True)

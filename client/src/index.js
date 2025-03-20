@@ -9,6 +9,7 @@ import ErrorPage from './components/ErrorPage';
 import HotelList from './components/HotelList';
 import NewHotelForm from './components/NewHotelForm';
 import HotelProfile from './components/HotelProfile';
+import LoginForm from './components/LoginForm';
 
 const router = createBrowserRouter([
   {
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
       {
         path: "/hotels/:id",
         element: <HotelProfile/>
+      },
+      {
+        path: "/login",
+        element: <LoginForm/>
       }
     ]
   }
