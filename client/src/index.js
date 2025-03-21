@@ -13,6 +13,7 @@ import LoginForm from './components/LoginForm';
 import ReviewList from './components/ReviewList';
 import UserReviewList from './components/UserReviewList';
 import NewReviewForm from './components/NewReviewForm';
+import SignupForm from './components/SignupForm';
 
 const router = createBrowserRouter([
   {
@@ -47,6 +48,10 @@ const router = createBrowserRouter([
       {
         path: "/login",
         element: <LoginForm/>
+      },
+      {
+        path: "/signup",
+        element: <SignupForm/>
       }
     ]
   }

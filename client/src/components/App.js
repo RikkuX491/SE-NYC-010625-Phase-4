@@ -9,6 +9,9 @@ function App(){
     const [reviews, setReviews] = useState([])
     const [user, setUser] = useState(null)
 
+    // Display the information for the user in the console
+    // console.log(user)
+
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -92,16 +95,16 @@ function App(){
                     }))
                 })
             }
-            else if(response.status === 400 || response.status === 404){
+            else{
                 response.json().then(errorData => {
                     alert(`Error: ${errorData.error}`)
                 })
             }
-            else{
-                response.json().then(() => {
-                    alert("Error: Something went wrong.")
-                })
-            }
+            // else{
+            //     response.json().then(() => {
+            //         alert("Error: Something went wrong.")
+            //     })
+            // }
         })
     }
 
@@ -116,7 +119,7 @@ function App(){
                     return hotel.id !== id
                 }))
             }
-            else if(response.status === 404){
+            else{
                 response.json().then(errorData => alert(`Error: ${errorData.error}`))
             }
         })
@@ -202,6 +205,31 @@ function App(){
         })
     }
 
+    function signup(signupData){
+        // POST request - signup for an account
+        fetch('/signup', {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            },
+            body: JSON.stringify(signupData)
+        })
+        .then(response => {
+            if(response.ok){
+                response.json().then(userData => {
+                    setUser(userData)
+                    navigate('/')
+                })
+            }
+            else{
+                response.json().then(errorObject => {
+                    alert(`Error: ${errorObject.error}`)
+                })
+            }
+        })
+    }
+
     function logOutUser(){
         // DELETE request - Log out a user.
         fetch('/logout', {
@@ -234,6 +262,7 @@ function App(){
                 deleteReview: deleteReview,
                 user: user,
                 logInUser: logInUser,
+                signup: signup
             }
         }/>
       </div>

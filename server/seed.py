@@ -12,10 +12,22 @@ with app.app_context():
     hotel2 = Hotel(name="Waikiki Resort", image="/images/waikiki-resort.png")
     hotel3 = Hotel(name="Bahamas Resort", image="/images/bahamas-resort.png")
 
-    user1 = User(first_name="Alice", last_name="Baker", username="alicebaker123", password_hash="ab123", type="customer")
-    user2 = User(first_name="Bob", last_name="Carris", username="bobcarris456", password_hash="flatironschool", type="customer")
-    user3 = User(first_name="Cynthia", last_name="Dawson", username="cynthiadawson789", password_hash="python", type="customer")
-    user4 = User(first_name="Daniel", last_name="Evans", username="danielevans101", password_hash="bahamas", type="admin")
+    password1 = "ab123"
+    pw_hash_value_1 = bcrypt.generate_password_hash(password1).decode('utf-8')
+
+    password2 = "flatironschool"
+    pw_hash_value_2 = bcrypt.generate_password_hash(password2).decode('utf-8')
+
+    password3 = "python"
+    pw_hash_value_3 = bcrypt.generate_password_hash(password3).decode('utf-8')
+
+    password4 = "bahamas"
+    pw_hash_value_4 = bcrypt.generate_password_hash(password4).decode('utf-8')
+
+    user1 = User(first_name="Alice", last_name="Baker", username="alicebaker123", password_hash=pw_hash_value_1, type="customer")
+    user2 = User(first_name="Bob", last_name="Carris", username="bobcarris456", password_hash=pw_hash_value_2, type="customer")
+    user3 = User(first_name="Cynthia", last_name="Dawson", username="cynthiadawson789", password_hash=pw_hash_value_3, type="customer")
+    user4 = User(first_name="Daniel", last_name="Evans", username="danielevans101", password_hash=pw_hash_value_4, type="admin")
 
     review1 = Review(rating=5, text="Best hotel ever!", hotel_id=1, user_id=1)
     review2 = Review(rating=4, text="Amazing!", hotel_id=1, user_id=2)

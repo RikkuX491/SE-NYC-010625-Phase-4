@@ -26,6 +26,14 @@ class Hotel(db.Model, SerializerMixin):
     # hotels and users Many-to-Many relationship: The hotel's users
     users = association_proxy('reviews', 'user', creator = lambda u: Review(user = u))
 
+    @validates('name', 'image')
+    def validate_name_and_image(self, column_name, value):
+        if not type(value) == str:
+            raise TypeError(f"{column_name} must be a string!")
+        elif len(value) < 5:
+            raise ValueError(f"{column_name} must be at least 5 characters long!")
+        return value
+
 class User(db.Model, SerializerMixin):
     __tablename__ = 'users'
 
